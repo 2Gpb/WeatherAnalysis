@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import os
 
 # Реальные средние температуры (примерные данные) для городов по сезонам
 seasonal_temperatures = {
@@ -43,6 +44,8 @@ def generate_realistic_temperature_data(cities, num_years=10):
     df['season'] = df['timestamp'].dt.month.map(lambda x: month_to_season[x])
     return df
 
-# Генерация данных
-data = generate_realistic_temperature_data(list(seasonal_temperatures.keys()))
-data.to_csv('temperature_data.csv', index=False)
+def generate_csv(path):
+    # Генерация данных
+    data = generate_realistic_temperature_data(list(seasonal_temperatures.keys()))
+    os.makedirs("../data/", exist_ok=True)
+    data.to_csv(path, index=False)
