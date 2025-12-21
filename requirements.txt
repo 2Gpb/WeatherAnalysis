@@ -1,2 +1,6 @@
 pandas
 numpy
+requests
+streamlit
+aiohttp
+plotly

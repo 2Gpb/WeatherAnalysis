@@ -24,8 +24,19 @@ def find_anomalies(df):
     df = df.drop(columns=['lower', 'upper'])
     return df
 
-def analysis_pipeline(file_path):
-    df = read_data(file_path)
+def is_anomalies(df, temp, season, city):
+    row = df.loc[(df['city'] == city) & (df['season'] == season), ["mean", "std"]]
+
+    mean = float(row["mean"].iloc[0])
+    std = float(row["std"].iloc[0])
+
+    lower = mean - 2 * std
+    upper = mean + 2 * std
+
+    return (temp < lower) or (temp > upper)
+
+
+def analysis_pipeline(df):
     df = count_rolling_mean(df)
     df = mean_temperature_and_standard_deviation(df)
     df = find_anomalies(df)
