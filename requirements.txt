@@ -1,6 +1,7 @@
 pandas
 numpy
 requests
-streamlit
+streamlit>=1.39,<2
 aiohttp
 plotly
+altair<6
